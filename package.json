@@ -1,0 +1,35 @@
+{
+  "name": "calcuoke-fullstack",
+  "version": "4.0.0",
+  "description": "Professional Karaoke System Builder - Latest Stable Build",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "vite",
+    "server": "nodemon server.js",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.3"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "nodemon": "^3.1.7",
+    "concurrently": "^9.1.0",
+    "eslint": "^9",
+    "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4"
+  }
+}

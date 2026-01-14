@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Library for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style type="text/tailwindcss">
+    :root {
+      --neon-blue: #00f3ff;
+      --neon-pink: #bc13fe;
+      --neon-purple: #7a0cd2;
+      --bg-dark: #05070a;
+      --bg-card: #0f121d;
+    }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg-dark);
+      color: #e2e8f0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      font-size: 24px;
+    }
+
+    .tokyo-gradient {
+      background: radial-gradient(circle at top right, #1a1b2e 0%, #05070a 100%);
+    }
+    .neon-text {
+      text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent; 
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155; 
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #475569; 
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(120%); opacity: 0; }
+    }
+    .notification-enter {
+      animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .notification-exit {
+      animation: slideOutRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-in {
+      animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/main.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
