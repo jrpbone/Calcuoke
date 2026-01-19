@@ -268,10 +268,6 @@ Runs both `npm run client` and `npm run server` (see limitations about missing b
 - `docs/*.txt` are static notes and may drift from the source.
 - `node_modules/` is checked into the repository, which is not typical for source control.
 
-### Future improvements
-
-Not defined in code.
-
 ### License
 
-Not specified.
+No License
