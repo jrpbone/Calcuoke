@@ -94,7 +94,7 @@ const Replacements: React.FC<ReplacementsProps> = ({ projects }) => {
   return (
     <div className="flex flex-col gap-8 animate-in pb-20">
       <header className="flex flex-col gap-1 pb-6 border-b border-white/5">
-        <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f3ff] to-[#bc13fe] text-3xl md:text-4xl font-black leading-tight tracking-tight drop-shadow-sm uppercase">REPLACEMENTS</h1>
+        <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f3ff] to-[#bc13fe] text-3xl md:text-4xl font-black leading-tight tracking-tight drop-shadow-sm uppercase">REPLACEMENTS</h1>
         <p className="text-slate-400 text-sm font-medium">Registry of defective and swapped hardware assets.</p>
       </header>
 
@@ -105,7 +105,7 @@ const Replacements: React.FC<ReplacementsProps> = ({ projects }) => {
             <button
               key={btn}
               onClick={() => setActiveCategory(btn)}
-              className={`px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === btn ? 'bg-white text-black shadow-xl' : 'text-slate-500 hover:text-white hover:bg-white/5'}`}
+              className={`px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === btn ? 'filter-active shadow-xl' : 'text-slate-500 hover:text-white hover:bg-white/5'}`}
             >
               {btn}
             </button>

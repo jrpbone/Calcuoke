@@ -39,7 +39,7 @@ export class ApiService {
     return this.deduplicateByID(components);
   }
 
-  static async saveComponent(comp: ComponentItem): Promise<void> {
+  static async saveComponent(comp: ComponentItem, options: { isUpdate?: boolean } = {}): Promise<void> {
     if (this.isUsingMock) {
       const existing = await this.getComponents();
       const compMap = new Map(existing.map(item => [item.id, item]));
@@ -53,8 +53,11 @@ export class ApiService {
       return;
     }
 
-    const existing = await this.getComponents();
-    const isUpdate = existing.some(c => c.id === comp.id);
+    let isUpdate = options.isUpdate;
+    if (typeof isUpdate !== 'boolean') {
+      const existing = await this.getComponents();
+      isUpdate = existing.some(c => c.id === comp.id);
+    }
     const url = isUpdate ? `${API_BASE_URL}/components/${comp.id}` : `${API_BASE_URL}/components`;
     const method = isUpdate ? 'PUT' : 'POST';
 
@@ -86,7 +89,7 @@ export class ApiService {
     return this.deduplicateByID(projects);
   }
 
-  static async saveProject(proj: KaraokeProject): Promise<void> {
+  static async saveProject(proj: KaraokeProject, options: { isUpdate?: boolean } = {}): Promise<void> {
     if (this.isUsingMock) {
       const existing = await this.getProjects();
       const projectMap = new Map(existing.map(p => [p.id, p]));
@@ -101,8 +104,11 @@ export class ApiService {
       return;
     }
 
-    const existing = await this.getProjects();
-    const isUpdate = existing.some(p => p.id === proj.id);
+    let isUpdate = options.isUpdate;
+    if (typeof isUpdate !== 'boolean') {
+      const existing = await this.getProjects();
+      isUpdate = existing.some(p => p.id === proj.id);
+    }
     const url = isUpdate ? `${API_BASE_URL}/projects/${proj.id}` : `${API_BASE_URL}/projects`;
     const method = isUpdate ? 'PUT' : 'POST';
 
