@@ -220,7 +220,6 @@ Calcuoke is a React + Vite single-page app for assembling karaoke system builds,
 - `lastError` is stored in state but not rendered in the UI.
 - Persistent logging and log storage are not defined in code.
 
-
 ## Setup Instructions (only if defined)
 
 ### Prerequisites
@@ -271,3 +270,14 @@ Runs both `npm run client` and `npm run server` (see limitations about missing b
 ### License
 
 No License
+
+
+### Images
+
+![1768846526829](image/README/1768846526829.png)
+
+![1768846542888](image/README/1768846542888.png)
+
+![1768846553251](image/README/1768846553251.png)
+
+![1768846560138](image/README/1768846560138.png)
