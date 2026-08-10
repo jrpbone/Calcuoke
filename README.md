@@ -1,3 +1,18 @@
+<div align="center">
+  <h1>Calcuoke</h1>
+  <h2>Built With</h2>
+  <p>
+    <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&amp;logo=react&amp;logoColor=black" alt="React 19.2" />
+    <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&amp;logo=typescript&amp;logoColor=white" alt="TypeScript 5.7" />
+    <img src="https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&amp;logo=vite&amp;logoColor=white" alt="Vite 6.0" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&amp;logo=tailwindcss&amp;logoColor=white" alt="Tailwind CSS 4" />
+    <br />
+    <img src="https://img.shields.io/badge/Node.js-20-5FA04E?style=for-the-badge&amp;logo=nodedotjs&amp;logoColor=white" alt="Node.js 20" />
+    <img src="https://img.shields.io/badge/Express-4.21-000000?style=for-the-badge&amp;logo=express&amp;logoColor=white" alt="Express 4.21" />
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&amp;logo=mysql&amp;logoColor=white" alt="MySQL" />
+  </p>
+</div>
+
 ---
 
 ## Why Calcuoke?
