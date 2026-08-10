@@ -47,11 +47,11 @@ const SaleRegistrationModal: React.FC<SaleRegistrationModalProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="fixed inset-0 z-[500] flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[500] flex items-center justify-center p-3 sm:p-6">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose}></div>
-      <form onSubmit={onSubmit} className="relative bg-[#0f121d] max-w-4xl w-full p-0 rounded-[48px] border border-white/10 flex flex-col shadow-[0_0_100px_rgba(0,0,0,0.7)] animate-in overflow-hidden">
+      <form onSubmit={onSubmit} className="relative bg-[#0f121d] max-w-4xl w-full max-h-[94vh] p-0 rounded-3xl sm:rounded-[40px] border border-white/10 flex flex-col shadow-[0_0_100px_rgba(0,0,0,0.7)] animate-in overflow-hidden">
         
-        <div className="p-10 flex flex-col gap-8 max-h-[85vh] overflow-y-auto custom-scrollbar">
+        <div className="p-5 sm:p-8 md:p-10 flex flex-col gap-6 sm:gap-8 flex-1 overflow-y-auto custom-scrollbar">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="size-16 rounded-2xl bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
               <span className="material-symbols-outlined text-white text-3xl">receipt_long</span>
@@ -92,7 +92,7 @@ const SaleRegistrationModal: React.FC<SaleRegistrationModalProps> = ({
             <div className="flex flex-col gap-2">
               <label className="text-[10px] font-black text-cyan-400 uppercase tracking-widest ml-1">Receipt Details</label>
               <div className="flex gap-2">
-                <div className="relative w-32 shrink-0">
+                <div className="relative w-28 sm:w-32 shrink-0">
                   <select 
                     className="w-full bg-[#1a1b2e]/40 border border-white/5 p-5 rounded-2xl text-white text-xs font-bold outline-none appearance-none cursor-pointer pr-10 bg-none" 
                     value={invoiceType} 
@@ -173,7 +173,7 @@ const SaleRegistrationModal: React.FC<SaleRegistrationModalProps> = ({
                 {sortedSummaryItems.map((item, idx) => {
                   const isNoWarranty = item.category === Category.CHASSIS || item.category === Category.MIC;
                   return (
-                    <div key={idx} className="flex items-center justify-between p-6 hover:bg-white/[0.02] transition-colors group/row">
+                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-6 hover:bg-white/[0.02] transition-colors group/row">
                       <div className="flex flex-col min-w-0 pr-4">
                         <span className="text-white text-[15px] font-black leading-tight uppercase tracking-tight">{item.name}</span>
                         <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -181,7 +181,7 @@ const SaleRegistrationModal: React.FC<SaleRegistrationModalProps> = ({
                            <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest bg-cyan-400/5 px-2 py-0.5 rounded border border-cyan-400/10">SN: {item.sku}</span>
                         </div>
                       </div>
-                      <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border transition-all shrink-0 ${isNoWarranty ? 'bg-slate-500/10 border-slate-500/20 text-slate-500' : 'bg-[#00f3ff]/10 border-[#00f3ff]/20 text-[#00f3ff] shadow-[0_0_15px_rgba(0,243,255,0.1)]'}`}>
+                      <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border transition-all shrink-0 ${isNoWarranty ? 'bg-slate-500/10 border-slate-500/20 text-slate-500' : 'bg-cyan-400/10 border-cyan-400/20 text-cyan-400 shadow-[0_8px_20px_rgba(79,70,229,0.08)]'}`}>
                         <span className="material-symbols-outlined text-[16px] font-variation-FILL">{isNoWarranty ? 'block' : 'verified'}</span>
                         <span className="text-[9px] font-black uppercase tracking-[0.1em]">{isNoWarranty ? 'No Warranty' : '3 Months Warranty'}</span>
                       </div>
@@ -196,22 +196,22 @@ const SaleRegistrationModal: React.FC<SaleRegistrationModalProps> = ({
           </div>
         </div>
 
-        <div className="p-10 bg-black/40 border-t border-white/5 flex items-center justify-between">
+        <div className="p-5 sm:px-10 sm:py-6 bg-black/40 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Transaction</p>
             <p className="text-cyan-400 text-3xl font-black font-mono mt-0.5">{'\u20B1'}{totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
           </div>
-          <div className="flex gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full sm:w-auto">
             <button 
               type="button" 
               onClick={onClose}
-              className="px-8 py-4 rounded-2xl bg-white/5 text-slate-300 font-black uppercase text-[11px] tracking-widest hover:text-white hover:bg-white/10 transition-all border border-white/5"
+              className="px-5 sm:px-8 py-4 rounded-2xl bg-white/5 text-slate-300 font-black uppercase text-[10px] sm:text-[11px] tracking-widest hover:text-white hover:bg-white/10 transition-all border border-white/5"
             >
               Cancel
             </button>
             <button 
               type="submit" 
-              className="px-12 py-4 bg-gradient-to-r from-cyan-400 to-purple-600 text-white font-black uppercase rounded-2xl tracking-[0.25em] text-[11px] shadow-[0_10px_30px_rgba(34,211,238,0.2)] hover:scale-[1.02] active:scale-95 transition-all"
+              className="px-5 sm:px-12 py-4 bg-gradient-to-r from-cyan-400 to-purple-600 text-white font-black uppercase rounded-2xl tracking-[0.18em] sm:tracking-[0.25em] text-[10px] sm:text-[11px] shadow-[0_10px_26px_rgba(79,70,229,0.2)] hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               Confirm
             </button>

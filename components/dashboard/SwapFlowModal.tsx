@@ -47,20 +47,20 @@ const SwapFlowModal: React.FC<SwapFlowModalProps> = ({
   onCreateAndSwap,
   isTemplateCategory
 }) => (
-  <div className="fixed inset-0 z-[800] flex justify-center items-start pt-20 p-6">
+  <div className="fixed inset-0 z-[800] flex justify-center items-center p-3 sm:p-6">
     <div className="absolute inset-0 bg-[#05070a]/98 backdrop-blur-xl" onClick={onBackdropClose}></div>
-    <div className="relative bg-[#0d0e14] max-w-xl w-full rounded-[40px] border border-white/10 shadow-[0_0_100px_rgba(0,0,0,1)] animate-in overflow-hidden transition-all duration-300 ease-out">
-      <div className="p-10 border-b border-white/5 flex justify-between items-start">
+    <div className="relative bg-[#0d0e14] max-w-xl w-full max-h-[94vh] rounded-3xl sm:rounded-[40px] border border-white/10 shadow-[0_0_100px_rgba(0,0,0,1)] animate-in overflow-y-auto custom-scrollbar transition-all duration-300 ease-out">
+      <div className="p-5 sm:p-8 md:p-10 border-b border-white/5 flex justify-between items-start gap-3">
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.3em]">Hardware Swap System</span>
-          <h2 className="text-3xl font-black text-white uppercase tracking-tight mt-1 leading-none">Replacing Component</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mt-1 leading-none">Replacing Component</h2>
         </div>
         <button onClick={onClose} className="size-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-500 hover:text-white transition-all">
           <span className="material-symbols-outlined">close</span>
         </button>
       </div>
 
-      <div className="px-10 py-6 bg-black/40 border-b border-white/5">
+      <div className="px-5 sm:px-10 py-5 sm:py-6 bg-black/40 border-b border-white/5">
         <div className="flex items-center gap-5">
           <div className="size-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 shadow-inner">
             <span className="material-symbols-outlined text-3xl font-variation-FILL">settings_backup_restore</span>
@@ -76,7 +76,7 @@ const SwapFlowModal: React.FC<SwapFlowModalProps> = ({
       </div>
 
       {swapModalView === 'options' && (
-        <div className="p-10 flex flex-col gap-5">
+        <div className="p-5 sm:p-8 md:p-10 flex flex-col gap-5">
           {oldItem.category === Category.PLAYER && (
             sameModelInstances.length > 0 ? (
               <button onClick={() => onSwapViewChange('select-unit')} className="flex items-center gap-6 p-6 rounded-3xl bg-purple-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all text-left group">
@@ -142,7 +142,7 @@ const SwapFlowModal: React.FC<SwapFlowModalProps> = ({
       )}
 
       {swapModalView === 'select-unit' && (
-        <div className="p-10 flex flex-col gap-6">
+        <div className="p-5 sm:p-8 md:p-10 flex flex-col gap-6">
           <div className="flex flex-col gap-3">
             {sameModelInstances.map((unit) => (
               <button key={unit.id} onClick={() => onInitiateSwap(unit)} className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-purple-500/10 transition-all text-left flex justify-between">
@@ -155,13 +155,13 @@ const SwapFlowModal: React.FC<SwapFlowModalProps> = ({
       )}
 
       {swapModalView === 'select-alt' && (
-        <div className="p-10 flex flex-col gap-6 transition-all duration-300 overflow-hidden">
+        <div className="p-5 sm:p-8 md:p-10 flex flex-col gap-6 transition-all duration-300 overflow-hidden">
           <div className="flex flex-wrap gap-2 pb-2">
             {availableAltFilters.map((filterVal) => (
               <button
                 key={filterVal}
                 onClick={() => onAltFilterChange(filterVal)}
-                className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${altFilter === filterVal ? 'bg-cyan-500 text-black border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.4)]' : 'bg-white/5 text-slate-500 border-white/10 hover:border-white/20 hover:text-slate-300'}`}
+                className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border ${altFilter === filterVal ? 'bg-cyan-500 text-white border-cyan-400 shadow-[0_8px_20px_rgba(79,70,229,0.22)]' : 'bg-white/5 text-slate-500 border-white/10 hover:border-white/20 hover:text-slate-300'}`}
               >
                 {filterVal}
               </button>
@@ -209,9 +209,9 @@ const SwapFlowModal: React.FC<SwapFlowModalProps> = ({
       )}
 
       {swapModalView === 'register' && (
-        <form onSubmit={onCreateAndSwap} className="p-10 flex flex-col gap-8">
-          <div className="grid grid-cols-2 gap-5">
-            <div className="flex flex-col gap-2 col-span-2">
+        <form onSubmit={onCreateAndSwap} className="p-5 sm:p-8 md:p-10 flex flex-col gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="flex flex-col gap-2 sm:col-span-2">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Hardware Model</label>
               {oldItem.category === Category.PLAYER ? (
                 <div className="relative">

@@ -40,6 +40,17 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, components, onNewBuild,
     (p.invoiceNumber || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const dashboardStats = useMemo(() => {
+    const revenue = projects.reduce((sum, project) => sum + project.totalCost, 0);
+    const swaps = projects.reduce((sum, project) => sum + (project.swapHistory?.length || 0), 0);
+    return [
+      { label: 'Sales records', value: projects.length.toLocaleString(), icon: 'receipt_long', tone: 'cyan' },
+      { label: 'Recorded value', value: `₱${revenue.toLocaleString('en-US', { maximumFractionDigits: 0 })}`, icon: 'payments', tone: 'violet' },
+      { label: 'Inventory assets', value: components.length.toLocaleString(), icon: 'inventory_2', tone: 'emerald' },
+      { label: 'Hardware swaps', value: swaps.toLocaleString(), icon: 'published_with_changes', tone: 'amber' }
+    ];
+  }, [projects, components]);
+
   const oldItem = useMemo(() => {
     if (viewingProject && swappingIndex !== null) return viewingProject.components[swappingIndex];
     return null;
@@ -257,37 +268,62 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, components, onNewBuild,
   };
 
   return (
-    <div className="flex flex-col gap-10">
-      <header className="flex flex-wrap justify-between items-center gap-4">
+    <div className="flex flex-col gap-7 md:gap-9 animate-in pb-8">
+      <header className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-5 pb-6 border-b border-white/5">
         <div className="flex flex-col gap-1">
-          <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f3ff] to-[#bc13fe] text-3xl md:text-4xl font-black leading-tight tracking-tight drop-shadow-sm uppercase">KARAOKE RECORD</h1>
-          <p className="text-slate-400 text-sm font-medium">Overview of active sales and hardware swaps.</p>
+          <div className="flex items-center gap-2.5 mb-1">
+            <span className="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(129,140,248,0.55)]"></span>
+            <span className="text-[10px] font-black uppercase tracking-[0.22em] text-cyan-400">Operations overview</span>
+          </div>
+          <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-300 to-violet-400 text-3xl md:text-4xl font-black leading-tight tracking-tight uppercase">KARAOKE RECORDS</h1>
+          <p className="text-slate-400 text-sm font-medium">Track every sale, warranty, and hardware swap in one place.</p>
         </div>
         <button 
           onClick={onNewBuild} 
-          className="flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 rounded-xl text-white font-black uppercase text-xs tracking-widest shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 active:scale-95 transition-all"
+          className="flex items-center justify-center gap-2 px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 rounded-2xl text-white font-black uppercase text-xs tracking-widest shadow-[0_10px_26px_rgba(79,70,229,0.22)] hover:-translate-y-0.5 active:translate-y-0 transition-all"
         >
           <span className="material-symbols-outlined text-[18px]">add_circle</span>
           NEW BUILD
         </button>
       </header>
 
+      <section className="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4" aria-label="Business summary">
+        {dashboardStats.map(stat => {
+          const tones: Record<string, string> = {
+            cyan: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/15',
+            violet: 'text-violet-400 bg-violet-400/10 border-violet-400/15',
+            emerald: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/15',
+            amber: 'text-amber-400 bg-amber-400/10 border-amber-400/15'
+          };
+          return (
+            <article key={stat.label} className="group min-w-0 rounded-2xl md:rounded-3xl border border-white/[0.07] bg-[#0f1527]/70 p-4 md:p-5 hover:border-white/[0.14] hover:-translate-y-0.5 transition-all shadow-lg">
+              <div className={`size-9 md:size-10 rounded-xl border flex items-center justify-center ${tones[stat.tone]}`}>
+                <span className="material-symbols-outlined text-[19px]">{stat.icon}</span>
+              </div>
+              <p className="mt-4 text-xl md:text-2xl font-black text-white tracking-tight truncate">{stat.value}</p>
+              <p className="mt-1 text-[9px] md:text-[10px] font-black uppercase tracking-[0.14em] text-slate-500 truncate">{stat.label}</p>
+            </article>
+          );
+        })}
+      </section>
+
       <ProjectSearch value={searchTerm} onChange={setSearchTerm} />
 
       <ProjectList
         projects={filteredProjects}
         onManage={setViewingProject}
+        onNewBuild={onNewBuild}
         formatLongDate={formatLongDate}
       />
 
       {viewingProject && (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[600] flex items-center justify-center p-3 sm:p-6">
           <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={() => setViewingProject(null)}></div>
-          <div className="relative bg-[#0d101d] max-w-5xl w-full max-h-[90vh] rounded-[40px] border border-white/10 flex flex-col shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-in overflow-hidden">
-            <div className="px-10 py-10 flex justify-between items-start shrink-0 border-b border-white/5">
+          <div className="relative bg-[#0d101d] max-w-5xl w-full max-h-[94vh] sm:max-h-[90vh] rounded-3xl sm:rounded-[40px] border border-white/10 flex flex-col shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-in overflow-hidden">
+            <div className="p-5 sm:px-10 sm:py-8 flex justify-between items-start gap-4 shrink-0 border-b border-white/5">
               <div className="flex flex-col gap-1">
                 <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em]">Transaction Details</span>
-                <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none">{viewingProject.buyerName || viewingProject.name}</h2>
+                <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight leading-none break-words">{viewingProject.buyerName || viewingProject.name}</h2>
                 <p className="text-slate-500 text-sm font-bold mt-1">Invoice: {viewingProject.invoiceNumber}</p>
               </div>
               <button onClick={() => setViewingProject(null)} className="size-12 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-500 hover:text-white transition-all hover:bg-white/10">
@@ -295,8 +331,8 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, components, onNewBuild,
               </button>
             </div>
             
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-8 md:p-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                 <div className="flex flex-col gap-6">
                   <div className="p-6 rounded-3xl bg-[#161b2e]/40 border border-white/5 flex flex-col gap-1 shadow-inner">
                     <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Customer Address</span>
@@ -401,16 +437,16 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, components, onNewBuild,
               </div>
             </div>
 
-            <div className="px-10 py-10 bg-black/40 border-t border-white/5 flex items-center justify-between shrink-0">
+            <div className="p-5 sm:px-10 sm:py-7 bg-black/40 border-t border-white/5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5 shrink-0">
               <div className="flex flex-col">
                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2 group/tip relative">
                   Total Transaction
                   <span className="material-symbols-outlined text-[14px] text-slate-600 cursor-help">info</span>
                   <span className="absolute bottom-full left-0 mb-2 hidden group-hover/tip:block bg-black border border-white/10 text-white text-[9px] px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl z-50 uppercase tracking-widest font-black">Original Price</span>
                 </span>
-                <p className="text-4xl font-black text-cyan-400 font-mono mt-1 leading-none tracking-tighter">₱{viewingProject.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                <p className="text-3xl sm:text-4xl font-black text-cyan-400 font-mono mt-1 leading-none tracking-tighter">₱{viewingProject.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
               </div>
-              <button onClick={() => { setWarrantyToView(viewingProject); setViewingProject(null); }} className="flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full text-white font-black uppercase text-xs tracking-[0.2em] shadow-[0_15px_35px_rgba(0,243,255,0.25)] hover:scale-[1.03] active:scale-95 transition-all"><span className="material-symbols-outlined text-[22px] font-variation-FILL">visibility</span><span>View Warranty</span></button>
+              <button onClick={() => { setWarrantyToView(viewingProject); setViewingProject(null); }} className="flex items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-2xl sm:rounded-full text-white font-black uppercase text-xs tracking-[0.16em] shadow-[0_14px_30px_rgba(79,70,229,0.20)] hover:-translate-y-0.5 active:translate-y-0 transition-all"><span className="material-symbols-outlined text-[22px] font-variation-FILL">visibility</span><span>View Warranty</span></button>
             </div>
           </div>
         </div>

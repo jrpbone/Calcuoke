@@ -3,7 +3,7 @@ import { Category, KaraokeProject } from '../../data/types';
 
 interface WarrantyViewerProps {
   project: KaraokeProject;
-  docRef: React.RefObject<HTMLDivElement>;
+  docRef: React.RefObject<HTMLDivElement | null>;
   onClose: () => void;
   onPrint: () => void;
   onDownload: () => void;
@@ -18,20 +18,20 @@ const WarrantyViewer: React.FC<WarrantyViewerProps> = ({
   onDownload,
   formatLongDate
 }) => (
-  <div className="fixed inset-0 z-[700] flex items-center justify-center p-8">
+  <div className="fixed inset-0 z-[700] flex items-center justify-center p-3 sm:p-8">
     <div className="absolute inset-0 bg-black/98 backdrop-blur-xl" onClick={onClose}></div>
     <div className="relative w-full max-w-4xl h-full flex flex-col gap-4">
-      <div className="flex justify-between items-center bg-[#1a1b2e] p-5 rounded-[24px] border border-white/10 shadow-2xl shrink-0">
+      <div className="flex justify-between items-center gap-3 bg-[#1a1b2e] p-3 sm:p-5 rounded-2xl sm:rounded-[24px] border border-white/10 shadow-2xl shrink-0">
         <div className="flex flex-col">
           <span className="text-[9px] font-black text-cyan-400 uppercase tracking-[0.3em]">Official Registry</span>
-          <h2 className="text-lg font-black text-white uppercase tracking-tight">{project.buyerName}'s Certificate</h2>
+          <h2 className="text-sm sm:text-lg font-black text-white uppercase tracking-tight truncate max-w-[130px] sm:max-w-none">{project.buyerName}'s Certificate</h2>
         </div>
         <div className="flex gap-3">
-          <button onClick={onPrint} className="px-6 py-3 bg-white text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-slate-100 transition-all flex items-center gap-2 shadow-lg">
-            <span className="material-symbols-outlined text-[18px]">print</span> Print
+          <button onClick={onPrint} aria-label="Print certificate" className="size-10 sm:size-auto sm:px-6 sm:py-3 bg-white text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-slate-100 transition-all flex items-center justify-center gap-2 shadow-lg">
+            <span className="material-symbols-outlined text-[18px]">print</span> <span className="hidden sm:inline">Print</span>
           </button>
-          <button onClick={onDownload} className="px-8 py-3 bg-cyan-400 text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-cyan-300 transition-all flex items-center gap-2 shadow-lg shadow-cyan-400/20">
-            <span className="material-symbols-outlined text-[18px]">download</span> Save PDF
+          <button onClick={onDownload} aria-label="Save certificate as PDF" className="size-10 sm:size-auto sm:px-8 sm:py-3 bg-cyan-400 text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-cyan-300 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-400/20">
+            <span className="material-symbols-outlined text-[18px]">download</span> <span className="hidden sm:inline">Save PDF</span>
           </button>
           <button onClick={onClose} className="size-11 bg-white/5 text-slate-400 rounded-xl flex items-center justify-center hover:bg-white/10 hover:text-white transition-all border border-white/10">
             <span className="material-symbols-outlined">close</span>
@@ -39,8 +39,8 @@ const WarrantyViewer: React.FC<WarrantyViewerProps> = ({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto bg-gray-200/50 p-8 rounded-[32px] flex justify-center shadow-inner custom-scrollbar">
-        <div ref={docRef} className="bg-white w-full max-w-[816px] p-10 flex flex-col text-black shadow-2xl font-sans relative" style={{ color: '#000000', height: '10in', overflow: 'hidden' }}>
+      <div className="flex-1 overflow-auto bg-gray-200/50 p-2 sm:p-8 rounded-2xl sm:rounded-[32px] flex sm:justify-center shadow-inner custom-scrollbar">
+        <div ref={docRef} className="bg-white w-full min-w-[816px] max-w-[816px] p-10 flex flex-col text-black shadow-2xl font-sans relative" style={{ color: '#000000', height: '10in', overflow: 'hidden' }}>
           <div className="absolute top-0 left-0 w-full h-2 bg-black"></div>
 
           <div className="text-center mb-6 pt-2">

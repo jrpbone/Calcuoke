@@ -155,7 +155,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="tokyo-gradient text-slate-200 h-screen flex overflow-hidden relative selection:bg-cyan-500 selection:text-black">
+    <div className="app-shell tokyo-gradient text-slate-200 h-screen flex overflow-hidden relative selection:bg-indigo-500 selection:text-white">
       <NotificationStack notifications={notifications} />
 
       <Sidebar
@@ -169,9 +169,9 @@ const App: React.FC = () => {
         }}
       />
 
-      <main className="flex-1 flex flex-col h-full overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
-          <div className="max-w-[1100px] mx-auto">
+      <main className="app-main flex-1 flex flex-col h-full min-w-0 overflow-hidden pt-[68px] pb-[78px] md:py-0">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 xl:p-10 custom-scrollbar scroll-smooth">
+          <div className="app-content max-w-[1280px] mx-auto">
             {renderContent()}
           </div>
         </div>

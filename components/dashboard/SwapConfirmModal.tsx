@@ -6,9 +6,9 @@ interface SwapConfirmModalProps {
 }
 
 const SwapConfirmModal: React.FC<SwapConfirmModalProps> = ({ onConfirm, onCancel }) => (
-  <div className="fixed inset-0 z-[900] flex items-center justify-center p-6">
+  <div className="fixed inset-0 z-[900] flex items-center justify-center p-3 sm:p-6">
     <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={onCancel}></div>
-    <div className="relative bg-[#0f121d] max-w-lg w-full p-10 rounded-[48px] border border-white/10 shadow-2xl animate-in text-center flex flex-col gap-8">
+    <div className="relative bg-[#0f121d] max-w-lg w-full p-6 sm:p-10 rounded-3xl sm:rounded-[40px] border border-white/10 shadow-2xl animate-in text-center flex flex-col gap-7 sm:gap-8">
       <div className="size-20 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
         <span className="material-symbols-outlined text-4xl font-variation-FILL">published_with_changes</span>
       </div>

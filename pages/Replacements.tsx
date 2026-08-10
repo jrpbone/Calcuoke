@@ -94,13 +94,13 @@ const Replacements: React.FC<ReplacementsProps> = ({ projects }) => {
   return (
     <div className="flex flex-col gap-8 animate-in pb-20">
       <header className="flex flex-col gap-1 pb-6 border-b border-white/5">
-        <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f3ff] to-[#bc13fe] text-3xl md:text-4xl font-black leading-tight tracking-tight drop-shadow-sm uppercase">REPLACEMENTS</h1>
-        <p className="text-slate-400 text-sm font-medium">Registry of defective and swapped hardware assets.</p>
+        <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-300 to-violet-400 text-3xl md:text-4xl font-black leading-tight tracking-tight uppercase">REPLACEMENTS</h1>
+        <p className="text-slate-400 text-sm font-medium">A searchable audit trail for defective and swapped hardware.</p>
       </header>
 
       {/* Filters and Search Bar Section */}
       <section className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-        <div className="flex gap-1.5 bg-[#0a0e17] p-2 rounded-[24px] border border-white/5 overflow-x-auto custom-scrollbar no-scrollbar w-full lg:w-auto">
+        <div className="flex gap-1.5 bg-[#0a0e17]/80 p-2 rounded-2xl border border-white/[0.07] overflow-x-auto custom-scrollbar no-scrollbar w-full lg:w-auto">
           {filterButtons.map(btn => (
             <button
               key={btn}
@@ -114,17 +114,17 @@ const Replacements: React.FC<ReplacementsProps> = ({ projects }) => {
         <div className="relative w-full lg:w-80">
           <span className="absolute left-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-500 text-xl">search</span>
           <input 
-            className="w-full pl-14 pr-6 py-4 bg-[#0a0e17] border border-white/5 rounded-[24px] text-sm text-white focus:border-amber-500/50 focus:ring-0 outline-none transition-all font-mono"
-            placeholder="Search records..."
+            className="w-full pl-14 pr-6 py-4 bg-[#0a0e17]/80 border border-white/[0.07] rounded-2xl text-sm text-white focus:border-amber-500/50 focus:ring-0 outline-none transition-all"
+            placeholder="Search replacements…"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
       </section>
 
-      <div className="bg-[#0f121d] border border-white/5 rounded-[40px] overflow-hidden shadow-2xl">
+      <div className="bg-[#0f121d]/90 border border-white/[0.07] rounded-3xl md:rounded-[32px] overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-left table-fixed border-collapse">
+          <table className="w-full min-w-[850px] text-left table-fixed border-collapse">
             <thead>
               <tr className="bg-white/[0.02] border-b border-white/5">
                 <th 
@@ -198,9 +198,12 @@ const Replacements: React.FC<ReplacementsProps> = ({ projects }) => {
               {processedReplacements.length === 0 && (
                 <tr>
                   <td colSpan={4} className="p-24 text-center">
-                    <div className="flex flex-col items-center gap-3 opacity-20">
-                      <span className="material-symbols-outlined text-7xl">history_edu</span>
-                      <p className="text-white font-black uppercase tracking-[0.3em]">No Swaps Recorded</p>
+                    <div className="flex flex-col items-center gap-3 py-6">
+                      <div className="size-16 rounded-2xl bg-amber-400/10 border border-amber-400/15 text-amber-400 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-3xl">history_edu</span>
+                      </div>
+                      <p className="text-white font-black tracking-tight">No replacements recorded</p>
+                      <p className="text-slate-500 text-xs">Hardware swaps will appear here automatically.</p>
                     </div>
                   </td>
                 </tr>

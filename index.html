@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050810">
+  <meta name="description" content="Calcuoke sales, inventory, warranty, and karaoke system workspace.">
+  <title>Calcuoke · Operations Workspace</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -12,61 +15,67 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style type="text/tailwindcss">
     :root {
-      --neon-blue: #00f3ff;
-      --neon-pink: #bc13fe;
-      --neon-purple: #7a0cd2;
-      --bg-dark: #05070a;
-      --bg-card: #0f121d;
-      --app-bg-start: #1a1b2e;
-      --app-bg-end: #05070a;
+      --brand-primary: #818cf8;
+      --brand-primary-strong: #6366f1;
+      --brand-secondary: #a78bfa;
+      --neon-blue: var(--brand-primary);
+      --neon-pink: var(--brand-secondary);
+      --neon-purple: #8b5cf6;
+      --bg-dark: #0b0d12;
+      --bg-card: #171a23;
+      --app-bg-start: #151822;
+      --app-bg-end: #0b0d12;
       --text-strong: #f8fafc;
-      --text-muted: #e2e8f0;
+      --text-muted: #cbd5e1;
       --text-subtle: #94a3b8;
       --text-faint: #64748b;
-      --accent-cyan: #00f3ff;
-      --accent-cyan-strong: #0ea5e9;
-      --sidebar-bg: #050810;
-      --sidebar-border: rgba(255, 255, 255, 0.05);
-      --surface-0: #05070a;
-      --surface-1: #0a0e17;
-      --surface-2: #0f121d;
-      --surface-3: #0f1527;
-      --surface-4: #0d0e14;
-      --surface-5: #0d101d;
-      --surface-6: #161b2e;
-      --surface-7: #1a1b2e;
-      --surface-8: #070912;
-      --surface-9: #080b14;
-      --surface-10: #151c35;
-      --border-soft: rgba(255, 255, 255, 0.12);
-      --border-softer: rgba(255, 255, 255, 0.06);
-      --filter-active-bg: #0a0e17;
+      --accent-cyan: var(--brand-primary);
+      --accent-cyan-strong: var(--brand-primary-strong);
+      --sidebar-bg: #0c0e13;
+      --sidebar-border: rgba(255, 255, 255, 0.07);
+      --surface-0: #0b0d12;
+      --surface-1: #111319;
+      --surface-2: #171a23;
+      --surface-3: #181c28;
+      --surface-4: #15171e;
+      --surface-5: #171a23;
+      --surface-6: #1c2130;
+      --surface-7: #202433;
+      --surface-8: #101218;
+      --surface-9: #13161d;
+      --surface-10: #23283a;
+      --border-soft: rgba(226, 232, 240, 0.14);
+      --border-softer: rgba(226, 232, 240, 0.075);
+      --filter-active-bg: #252a3a;
       --filter-active-text: #f8fafc;
     }
     :root[data-theme="light"] {
-      --app-bg-start: #f1f5f9;
-      --app-bg-end: #f1f5f9;
-      --text-strong: #0f172a;
-      --text-muted: #1e293b;
-      --text-subtle: #334155;
-      --text-faint: #475569;
-      --accent-cyan: #0284c7;
-      --accent-cyan-strong: #0369a1;
+      --brand-primary: #4f46e5;
+      --brand-primary-strong: #4338ca;
+      --brand-secondary: #7c3aed;
+      --app-bg-start: #f8f9fc;
+      --app-bg-end: #f3f4f8;
+      --text-strong: #111827;
+      --text-muted: #334155;
+      --text-subtle: #475569;
+      --text-faint: #64748b;
+      --accent-cyan: var(--brand-primary);
+      --accent-cyan-strong: var(--brand-primary-strong);
       --sidebar-bg: #ffffff;
       --sidebar-border: rgba(15, 23, 42, 0.08);
-      --surface-0: #f1f5f9;
-      --surface-1: #e2e8f0;
+      --surface-0: #f5f6fa;
+      --surface-1: #eef0f6;
       --surface-2: #ffffff;
-      --surface-3: #f1f5f9;
+      --surface-3: #f8f9fc;
       --surface-4: #ffffff;
       --surface-5: #ffffff;
-      --surface-6: #f1f5f9;
-      --surface-7: #f1f5f9;
+      --surface-6: #f1f3f8;
+      --surface-7: #f5f6fa;
       --surface-8: #ffffff;
-      --surface-9: #e2e8f0;
-      --surface-10: #dbe3ef;
-      --border-soft: rgba(15, 23, 42, 0.14);
-      --border-softer: rgba(15, 23, 42, 0.08);
+      --surface-9: #eef0f6;
+      --surface-10: #e8ebf3;
+      --border-soft: rgba(30, 41, 59, 0.15);
+      --border-softer: rgba(30, 41, 59, 0.09);
       --filter-active-bg: #ffffff;
       --filter-active-text: #0f172a;
     }
@@ -94,19 +103,15 @@
     .tokyo-gradient {
       background: radial-gradient(circle at top right, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
     }
-    .neon-text {
-      text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
-    }
-    :root[data-theme="light"] .neon-text {
-      text-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
-    }
+    .neon-text { text-shadow: none; }
     .heading-gradient {
       color: transparent;
       background-clip: text;
       -webkit-background-clip: text;
+      background-image: linear-gradient(90deg, #f8fafc 0%, #c7d2fe 55%, #a78bfa 100%) !important;
     }
     :root[data-theme="light"] .heading-gradient {
-      background-image: linear-gradient(90deg, #0f172a 0%, var(--accent-cyan) 45%, var(--accent-cyan-strong) 100%) !important;
+      background-image: linear-gradient(90deg, #111827 0%, #3730a3 58%, #6d28d9 100%) !important;
     }
     :root[data-theme="light"] .sidebar-shell {
       background-color: var(--sidebar-bg) !important;
@@ -253,6 +258,5 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/main.tsx"></script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>

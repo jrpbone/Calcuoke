@@ -212,14 +212,14 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
   return (
     <div className="flex flex-col gap-8 pb-12">
       <div className="flex flex-col gap-8 animate-in">
-        <header className="flex flex-wrap justify-between items-center gap-4 pb-6 border-b border-white/5">
+        <header className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-5 pb-6 border-b border-white/5">
           <div className="flex flex-col gap-1">
-            <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00f3ff] to-[#bc13fe] text-3xl md:text-4xl font-black leading-tight tracking-tight drop-shadow-sm uppercase">COMPONENTS</h1>
-            <p className="text-slate-500 text-sm">Hardware components and pricing assets.</p>
+            <h1 className="heading-gradient text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-300 to-violet-400 text-3xl md:text-4xl font-black leading-tight tracking-tight uppercase">COMPONENTS</h1>
+            <p className="text-slate-400 text-sm">Manage hardware, inventory identifiers, and pricing.</p>
           </div>
           <button
             onClick={() => handleOpenAddModal()}
-            className="flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 rounded-xl text-white font-black uppercase text-xs tracking-widest shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 rounded-2xl text-white font-black uppercase text-xs tracking-widest shadow-[0_10px_26px_rgba(79,70,229,0.22)] hover:-translate-y-0.5 transition-all"
           >
             <span className="material-symbols-outlined text-[18px]">add_circle</span>
             ADD NEW COMPONENT
@@ -227,7 +227,7 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
         </header>
 
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-          <div className="flex gap-1.5 bg-[#0a0e17] p-2 rounded-[24px] border border-white/5 overflow-x-auto custom-scrollbar no-scrollbar w-full lg:w-auto">
+          <div className="flex gap-1.5 bg-[#0a0e17]/80 p-2 rounded-2xl border border-white/[0.07] overflow-x-auto custom-scrollbar no-scrollbar w-full lg:w-auto">
             {filterButtons.map(btn => (
               <button
                 key={btn}
@@ -241,17 +241,17 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
           <div className="relative w-full lg:w-80">
             <span className="absolute left-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-500 text-xl">search</span>
             <input
-              className="w-full pl-14 pr-6 py-4 bg-[#0a0e17] border border-white/5 rounded-[24px] text-sm text-white focus:border-cyan-500/50 focus:ring-0 outline-none transition-all font-mono"
-              placeholder="Search by SKU, Name..."
+              className="w-full pl-14 pr-6 py-4 bg-[#0a0e17]/80 border border-white/[0.07] rounded-2xl text-sm text-white focus:border-cyan-500/50 focus:ring-0 outline-none transition-all"
+              placeholder="Search by SKU or name…"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="bg-[#0f121d] border border-white/5 rounded-[40px] overflow-hidden shadow-2xl">
+        <div className="bg-[#0f121d]/90 border border-white/[0.07] rounded-3xl md:rounded-[32px] overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left table-fixed border-collapse">
+            <table className="w-full min-w-[900px] text-left table-fixed border-collapse">
               <thead>
                 <tr className="bg-white/[0.02] border-b border-white/5">
                   <th
@@ -359,9 +359,9 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
       </div>
 
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[600] flex items-center justify-center p-3 sm:p-6">
           <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setIsDeleteModalOpen(false)}></div>
-          <div className="relative bg-[#0f121d] max-md w-full p-10 rounded-[40px] border border-white/10 shadow-2xl animate-in text-center">
+          <div className="relative bg-[#0f121d] max-w-md w-full p-6 sm:p-10 rounded-3xl sm:rounded-[40px] border border-white/10 shadow-2xl animate-in text-center">
             <div className="size-20 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-8 border border-rose-500/20">
               <span className="material-symbols-outlined text-4xl font-variation-FILL">warning</span>
             </div>
@@ -379,11 +379,11 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
       )}
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[500] flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[500] flex items-center justify-center p-3 sm:p-6">
           <div className="absolute inset-0 bg-[#05070a]/90 backdrop-blur-xl" onClick={handleCloseModal}></div>
           <form
             onSubmit={handleSubmit}
-            className="relative bg-[#0f121d] max-w-2xl w-full p-10 rounded-[48px] border border-white/10 flex flex-col gap-8 shadow-[0_0_100px_rgba(0,0,0,0.5)] animate-in overflow-hidden"
+            className="relative bg-[#0f121d] max-w-2xl w-full max-h-[94vh] p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[40px] border border-white/10 flex flex-col gap-6 sm:gap-8 shadow-[0_0_100px_rgba(0,0,0,0.5)] animate-in overflow-y-auto custom-scrollbar"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
 
@@ -398,7 +398,7 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Component Visual</label>
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full h-64 rounded-[32px] bg-black/40 border-2 border-dashed border-white/10 flex flex-col items-center justify-center overflow-hidden cursor-pointer group hover:border-cyan-500/50 transition-all relative"
+                className="w-full h-44 sm:h-64 rounded-2xl sm:rounded-[32px] bg-black/40 border-2 border-dashed border-white/10 flex flex-col items-center justify-center overflow-hidden cursor-pointer group hover:border-cyan-500/50 transition-all relative"
               >
                 {formData.image ? (
                   <>
@@ -503,7 +503,7 @@ const ComponentsList: React.FC<ComponentsListProps> = ({
               </button>
               <button
                 type="submit"
-                className="flex-[2] py-5 bg-gradient-to-r from-cyan-400 to-blue-600 text-black font-black uppercase rounded-3xl tracking-[0.25em] text-[11px] shadow-[0_10px_30px_rgba(34,211,238,0.2)] active:scale-95 transition-all"
+                className="flex-[2] py-5 bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-black uppercase rounded-3xl tracking-[0.25em] text-[11px] shadow-[0_10px_26px_rgba(79,70,229,0.2)] active:scale-95 transition-all"
               >
                 {editingItem ? 'Update Asset' : 'Commit to Database'}
               </button>

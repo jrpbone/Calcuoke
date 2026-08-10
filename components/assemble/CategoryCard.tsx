@@ -31,13 +31,13 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   const hasComponents = filteredOptions.length > 0;
 
   return (
-    <div className="flex flex-col gap-4 bg-[#0d101d] border border-white/5 p-6 rounded-[24px] hover:border-white/10 transition-all shadow-xl group">
+    <div className="flex flex-col gap-4 bg-[#0d101d]/85 border border-white/[0.07] p-5 sm:p-6 rounded-[24px] hover:border-cyan-400/15 hover:-translate-y-0.5 transition-all shadow-xl group">
       <div className="flex justify-between items-start">
         <div>
           <h3 className="text-white font-black text-lg leading-tight uppercase tracking-tight">{category.title}</h3>
           <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-0.5">{category.subtitle}</p>
         </div>
-        <div className="size-12 rounded-xl bg-[#070912] border border-white/5 text-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/5">
+        <div className="size-11 rounded-xl bg-cyan-400/[0.07] border border-cyan-400/10 text-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/5">
           <span className="material-symbols-outlined text-2xl">{category.icon}</span>
         </div>
       </div>

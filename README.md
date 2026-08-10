@@ -1,283 +1,240 @@
-# Calcuoke
+<div align="center">
 
-## Overview
+---
 
-### Project overview
+## Why Calcuoke?
 
-Calcuoke is a React + Vite single-page app for assembling karaoke system builds, tracking sales records, and managing component inventory. It supports an online API mode and a local simulation mode using browser storage.
+Karaoke system sales involve more than adding up components. Teams need to know which serialized player went to which customer, what was originally covered by warranty, and whether a replacement is still eligible. Calcuoke keeps that operational history connected from assembly through after-sales support.
 
-### What the application does
+- **Build with confidence** — configure a complete system from categorized inventory with a live total.
+- **Keep every sale traceable** — retain customer, receipt, date, component, serial number, and photo records.
+- **Support customers faster** — validate swap eligibility and choose same-model or alternative hardware.
+- **Generate professional paperwork** — preview, print, or download warranty certificates as PDF.
+- **Work with or without MySQL** — use the Express API in connected mode or automatic browser storage fallback in simulation mode.
 
-- Builds a karaoke system configuration from inventory categories and totals the cost.
-- Registers a sale with buyer details, invoice data, and optional photos.
-- Maintains a component catalog with CRUD, search, and sorting.
-- Tracks hardware swaps and produces warranty certificates.
+## Preview
 
-### Primary use cases
+<table>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src="image/README/dashboard.png" alt="Calcuoke sales dashboard" width="600" height="312" />
+      <br />
+      <strong>Sales dashboard</strong>
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src="image/README/assemble.png" alt="Calcuoke system assembly workspace" width="600" height="312" />
+      <br />
+      <strong>System assembly</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src="image/README/components.png" alt="Calcuoke component inventory" width="600" height="312" />
+      <br />
+      <strong>Component inventory</strong>
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src="image/README/replacements.png" alt="Calcuoke replacements ledger" width="600" height="312" />
+      <br />
+      <strong>Replacements ledger</strong>
+    </td>
+  </tr>
+</table>
 
-- Assemble a new karaoke set and record a sale.
-- Manage component inventory and pricing.
-- Review customer records, photos, and swap history.
-- Generate warranty certificates and replacements ledger views.
+The interface includes responsive desktop and mobile navigation, accessible light and dark themes, searchable records, polished empty states, and workflow-focused dialogs.
 
-### Target users
+## Features
 
-- Sales or operations staff recording karaoke system transactions.
-- Inventory managers maintaining hardware catalog data.
-- Service or support staff tracking replacements and swaps.
+### Operations dashboard
 
-### Key features
+- Summary cards for sales records, recorded value, inventory assets, and hardware swaps.
+- Search by customer, invoice number, or build grade.
+- Detailed customer records with photos, bill of materials, sale totals, and warranty access.
 
-- Online or simulation data mode with localStorage fallback.
-- Warranty certificate generation (print or PDF).
-- Swap workflow with same-model and alternative selection.
-- Photo upload with client-side compression.
+### Karaoke system assembly
 
-## Tech Stack (verified only)
+- Dedicated selectors for microphone, amplifier, player, chassis, and TV.
+- Live build total and automatic Standard or Premium grading.
+- Contextual component creation when a required category has no inventory.
+- Sale registration with customer details, receipt type, date, address, and compressed photos.
 
-### Programming languages
+### Inventory management
 
-- TypeScript (TSX for UI components).
-- JavaScript runtime (browser).
-- HTML and CSS (index.html with Tailwind utility classes).
+- Create, edit, search, sort, filter, and remove component records.
+- SKU and serial uniqueness checks with categorized hardware metadata.
+- Image upload and preview support.
+- Inventory-aware player selection and deduction after a completed sale.
 
-### Frameworks and libraries
+### Warranty and replacements
 
-- React 19 and ReactDOM.
-- Vite (dev server and build).
-- Tailwind CSS via CDN in `index.html`.
-- html2pdf.js via CDN for PDF export.
-- Material Symbols and Space Grotesk (Google Fonts).
+- Warranty certificate preview with print and PDF export.
+- Original purchase components remain preserved after later swaps.
+- Same-model, alternative-model, and newly registered replacement flows.
+- Centralized replacement ledger with customer, hardware, serial number, category, and date details.
 
-### Tools and dependencies
+### Experience and resilience
 
-- Node.js and npm for scripts and dependency management.
-- concurrently and nodemon for dev workflow.
-- TypeScript and ESLint for type checking and linting.
-- Express, mysql2, cors, body-parser (declared dependencies; backend code is not in this repo).
+- Modern commerce-inspired light and dark themes.
+- Responsive layouts for desktop, tablet, and mobile screens.
+- Toast feedback for successful and failed operations.
+- Automatic local simulation mode when the API is unavailable.
 
-## File-by-File Breakdown
+## Application flow
 
-### Directory tree overview
-
-```text
-.
-├─ components/
-│  ├─ assemble/
-│  └─ dashboard/
-├─ data/
-├─ docs/
-├─ hooks/
-├─ lib/
-├─ pages/
-├─ node_modules/
-├─ App.tsx
-├─ CHANGELOG.md
-├─ README.md
-├─ calcuoke.zip
-├─ index.html
-├─ index.tsx
-├─ main.tsx
-├─ metadata.json
-├─ package.json
-├─ package-lock.json
-├─ tsconfig.json
-├─ types.ts
-└─ vite.config.ts
+```mermaid
+flowchart LR
+    A[Component inventory] --> B[Assemble a system]
+    B --> C[Register the sale]
+    C --> D[Customer record]
+    D --> E[Warranty certificate]
+    D --> F[Hardware swap]
+    F --> G[Replacements ledger]
 ```
 
-### Root files
+The client accesses data through one service layer. If the Express API responds, records are persisted in MySQL. If it does not, the same workflows continue in browser storage.
 
-| Path                  | Purpose                                                            |
-| --------------------- | ------------------------------------------------------------------ |
-| `.gitignore`        | Git ignore rules for local artifacts.                              |
-| `App.tsx`           | Top-level application component, view routing, and handler wiring. |
-| `CHANGELOG.md`      | Versioned change log.                                              |
-| `README.md`         | Project documentation.                                             |
-| `calcuoke.zip`      | Archive file; not referenced by the app.                           |
-| `index.html`        | HTML shell, Tailwind CDN, fonts, and html2pdf script tags.         |
-| `index.tsx`         | React entry point (duplicates `main.tsx`).                       |
-| `main.tsx`          | React entry point used by Vite.                                    |
-| `metadata.json`     | App metadata (name/description); not referenced in code.           |
-| `package.json`      | Scripts and dependency manifest.                                   |
-| `package-lock.json` | npm dependency lockfile.                                           |
-| `tsconfig.json`     | TypeScript compiler configuration.                                 |
-| `types.ts`          | Type definitions (appears duplicate of `data/types.ts`).         |
-| `vite.config.ts`    | Vite dev server and plugin configuration.                          |
+```mermaid
+flowchart TD
+    UI[React application] --> API[ApiService]
+    API -->|API online| SERVER[Express REST API]
+    SERVER --> DB[(MySQL)]
+    API -->|API unavailable| LOCAL[(localStorage)]
+```
 
-### components/
+## Quick start
 
-| Path                                 | Purpose                        |
-| ------------------------------------ | ------------------------------ |
-| `components/LoadingState.tsx`      | Loading spinner for data sync. |
-| `components/NotificationStack.tsx` | Toast notification UI.         |
-| `components/Sidebar.tsx`           | Navigation and theme toggle.   |
-
-### components/assemble/
-
-| Path                                              | Purpose                                |
-| ------------------------------------------------- | -------------------------------------- |
-| `components/assemble/AssembleHeader.tsx`        | Assemble page header and CTA.          |
-| `components/assemble/CategoryCard.tsx`          | Category selector card for components. |
-| `components/assemble/ImagePreviewModal.tsx`     | Lightbox for component images.         |
-| `components/assemble/SaleRegistrationModal.tsx` | Sale registration and summary modal.   |
-| `components/assemble/TotalCostCard.tsx`         | Total cost summary card.               |
-
-### components/dashboard/
-
-| Path                                           | Purpose                                              |
-| ---------------------------------------------- | ---------------------------------------------------- |
-| `components/dashboard/PhotoPreviewModal.tsx` | Lightbox for record photos.                          |
-| `components/dashboard/ProjectList.tsx`       | Project list view and summary cards.                 |
-| `components/dashboard/ProjectSearch.tsx`     | Search input for projects.                           |
-| `components/dashboard/SwapConfirmModal.tsx`  | Swap confirmation modal.                             |
-| `components/dashboard/SwapFlowModal.tsx`     | Swap flow selection and registration UI.             |
-| `components/dashboard/WarrantyViewer.tsx`    | Warranty certificate display, print, and PDF export. |
-
-### data/
-
-| Path                  | Purpose                                                                  |
-| --------------------- | ------------------------------------------------------------------------ |
-| `data/SeedData.tsx` | Initial components list and empty projects seed.                         |
-| `data/types.ts`     | Core domain types (Category, ComponentItem, KaraokeProject, SwapRecord). |
-
-### docs/
-
-| Path                              | Purpose                                             |
-| --------------------------------- | --------------------------------------------------- |
-| `docs/App.txt`                  | Text description of `App.tsx`.                    |
-| `docs/data_SeedData.txt`        | Text description of `data/SeedData.tsx`.          |
-| `docs/data_types.txt`           | Text description of `data/types.ts`.              |
-| `docs/lib_api.txt`              | Text description of `lib/api.ts`.                 |
-| `docs/main.txt`                 | Text description of `main.tsx` and `index.tsx`. |
-| `docs/pages_Assemble.txt`       | Text description of `pages/Assemble.tsx`.         |
-| `docs/pages_ComponentsList.txt` | Text description of `pages/ComponentsList.tsx`.   |
-| `docs/pages_Dashboard.txt`      | Text description of `pages/Dashboard.tsx`.        |
-| `docs/pages_Replacements.txt`   | Text description of `pages/Replacements.tsx`.     |
-
-### hooks/
-
-| Path                          | Purpose                                           |
-| ----------------------------- | ------------------------------------------------- |
-| `hooks/useAppData.ts`       | Data sync and CRUD state for components/projects. |
-| `hooks/useNotifications.ts` | Toast notification state and timers.              |
-| `hooks/useTheme.ts`         | Dark/light theme state stored in localStorage.    |
-
-### lib/
-
-| Path           | Purpose                                                               |
-| -------------- | --------------------------------------------------------------------- |
-| `lib/api.ts` | API client with online/simulation modes and localStorage persistence. |
-
-### pages/
-
-| Path                         | Purpose                                  |
-| ---------------------------- | ---------------------------------------- |
-| `pages/Assemble.tsx`       | Build flow and sale creation.            |
-| `pages/ComponentsList.tsx` | Inventory catalog management.            |
-| `pages/Dashboard.tsx`      | Project records, swaps, warranty viewer. |
-| `pages/Replacements.tsx`   | Aggregated swap history ledger.          |
-
-### node_modules/
-
-| Path              | Purpose                                   |
-| ----------------- | ----------------------------------------- |
-| `node_modules/` | Local dependency tree (generated by npm). |
-
-## Application Flow
-
-### High-level design
-
-- `App.tsx` holds the current view and wires data/handlers to page components.
-- `useAppData` orchestrates API or localStorage data access.
-- `useNotifications` provides transient UI feedback across views.
-
-### How components interact
-
-- `Sidebar` changes `currentView` to render `Dashboard`, `Assemble`, `ComponentsList`, or `Replacements`.
-- `Dashboard` reads project data, manages swaps, and launches the warranty viewer.
-- `Assemble` builds a component set, calculates totals, and submits a new project.
-- `ComponentsList` provides CRUD and validation for inventory items.
-
-### Data flow
-
-- On load, `useAppData` calls `ApiService.checkStatus()` and sets `dbStatus` to online or simulation.
-- In simulation mode, components/projects are read and written to `localStorage` (`calcuoke_components`, `calcuoke_projects`).
-- CRUD actions update local state first and persist via `ApiService`.
-- Swap actions append `swapHistory`, replace a component, and remove player inventory items when swapped.
-
-### Important business logic
-
-- Grade is assigned by total cost: over 75000 is "Premium Setup", otherwise "Standard Commercial".
-- Invoice IDs are prefixed by type; `PAPER` uses `PAPER-VOID`.
-- Swap eligibility: players anytime; other categories only within 7 days of sale; chassis cannot be swapped.
-- Warranty terms: player/amplifier/TV use a 90-day service term; mic uses 7-day exchange; chassis has no warranty.
-- Sale photos are compressed client-side to reduce localStorage usage.
-
-### Error handling and logging
-
-- `useAppData` and `ApiService` throw errors that are displayed as toast notifications.
-- `lastError` is stored in state but not rendered in the UI.
-- Persistent logging and log storage are not defined in code.
-
-## Setup Instructions (only if defined)
+Simulation mode is the fastest way to explore Calcuoke. It does not require MySQL.
 
 ### Prerequisites
 
-- Node.js and npm.
+- [Node.js](https://nodejs.org/) 20 LTS recommended
+- npm
 
-### Installation
+### Install and run
 
 ```bash
+git clone https://github.com/jrpbone/Calcuoke.git
+cd Calcuoke
 npm install
-```
-
-### Running the application
-
-```bash
 npm run client
 ```
 
-The Vite dev server is configured to run on port 5173.
+Open [http://localhost:5173](http://localhost:5173). When the API is unavailable, Calcuoke displays **Local mode** and initializes sample components in `localStorage`.
+
+> Browser data is local to the current origin and browser profile. Clearing site data removes simulation records.
+
+## Full-stack setup
+
+Use connected mode when records should persist in MySQL and be shared through the REST API.
+
+### 1. Create the database
+
+The included schema creates the `calcuoke` database and its component, project, photo, and swap tables.
 
 ```bash
+mysql -u root -p -e "source database/schema.sql"
+```
+
+> `database/schema.sql` drops and recreates Calcuoke tables. Use it for local setup, not against a production database containing records.
+
+### 2. Configure the API
+
+The server reads the following environment variables and otherwise uses local-development defaults:
+
+| Variable      | Default     | Purpose          |
+| ------------- | ----------- | ---------------- |
+| `DB_HOST`     | `localhost` | MySQL hostname   |
+| `DB_PORT`     | `3306`      | MySQL port       |
+| `DB_USER`     | `root`      | MySQL user       |
+| `DB_PASSWORD` |             | MySQL password   |
+| `DB_NAME`     | `calcuoke`  | Database name    |
+| `PORT`        | `3001`      | Express API port |
+
+PowerShell example:
+
+```powershell
+$env:DB_USER="root"
+$env:DB_PASSWORD="your-password"
 npm run dev
 ```
 
-Runs both `npm run client` and `npm run server` (see limitations about missing backend).
+macOS or Linux example:
 
-### Environment configuration
+```bash
+DB_USER=root DB_PASSWORD=your-password npm run dev
+```
 
-- `lib/api.ts` defines `API_BASE_URL` and must be edited to point at a different backend.
-- `vite.config.ts` sets the dev server host/port and `tsconfig.json` controls TypeScript compiler options.
+`npm run dev` starts both services:
 
-### Usage
+| Service      | URL                                                                  |
+| ------------ | -------------------------------------------------------------------- |
+| React client | [http://localhost:5173](http://localhost:5173)                       |
+| Express API  | [http://localhost:3001/api](http://localhost:3001/api)               |
+| Health check | [http://localhost:3001/api/status](http://localhost:3001/api/status) |
 
-- Use the sidebar to switch between Dashboard, Assemble, Components, and Replacements.
-- Assemble a build, register the sale, then review it on the Dashboard for warranty and swaps.
+## Available commands
 
-## Limitations
+| Command           | Description                              |
+| ----------------- | ---------------------------------------- |
+| `npm run client`  | Start the Vite client development server |
+| `npm run server`  | Start the Express API with Nodemon       |
+| `npm run dev`     | Run the client and API together          |
+| `npm run build`   | Type-check and create a production build |
+| `npm run preview` | Preview the production build locally     |
 
-### Limitations and known issues
+## Tech stack
 
-- Backend server code is not present; `npm run server` expects `server.js`.
-- `index.html` loads both `main.tsx` and `index.tsx` and references `/index.css`, which is not in the repo.
-- `types.ts` duplicates `data/types.ts` and appears unused by imports.
-- `.env.local` contains a key that is never read by the client code.
-- `docs/*.txt` are static notes and may drift from the source.
-- `node_modules/` is checked into the repository, which is not typical for source control.
+| Layer            | Technology                                           |
+| ---------------- | ---------------------------------------------------- |
+| Interface        | React 19, TypeScript, Tailwind utilities, custom CSS |
+| Tooling          | Vite 6, npm                                          |
+| API              | Express 4, CORS                                      |
+| Database         | MySQL with`mysql2` connection pooling                |
+| Documents        | html2pdf.js                                          |
+| Icons and type   | Material Symbols, Space Grotesk                      |
+| Offline fallback | Browser`localStorage`                                |
 
-### License
+## Project structure
 
-No License
+```text
+Calcuoke/
+|-- backend/                 # Express and MySQL REST API
+|-- components/              # Shared and feature-level UI
+|   |-- assemble/            # Assembly and sale dialogs
+|   `-- dashboard/           # Records, swaps, and warranty UI
+|-- data/                    # Domain types and sample inventory
+|-- database/                # Local MySQL schema
+|-- hooks/                   # Data, notifications, and theme state
+|-- image/README/            # GitHub showcase images
+|-- lib/                     # API/local simulation service
+|-- pages/                   # Main application screens
+|-- App.tsx                  # Application shell and view orchestration
+|-- index.css                # Shared responsive theme system
+|-- index.html               # Browser shell and external UI resources
+`-- vite.config.ts           # Vite development configuration
+```
 
+## Business rules at a glance
 
-### Images
+- Builds above `₱75,000` are labeled **Premium Setup**; other builds are **Standard Commercial**.
+- Player hardware can be swapped throughout its supported service flow.
+- Non-player eligible categories use the configured seven-day swap window.
+- Chassis components cannot be swapped and do not receive warranty coverage.
+- Warranty documents retain the originally purchased bill of materials even after replacements.
+- Receipt identifiers use their selected prefix; paper records use `PAPER-VOID`.
 
-![1768846526829](image/README/1768846526829.png)
+## Contributing
 
-![1768846542888](image/README/1768846542888.png)
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. The requested [CONTRIBUTIONS.md](CONTRIBUTIONS.md) filename is also available as a compatibility link.
 
-![1768846553251](image/README/1768846553251.png)
+For release history, see [CHANGELOG.md](CHANGELOG.md).
 
-![1768846560138](image/README/1768846560138.png)
+## License
+
+Calcuoke is distributed under the [GNU General Public License v3.0](LICENSE). If you distribute a modified version, the GPL requires the corresponding source and license terms to remain available.
+
+---
+
+<div align="center">
+  Built for clearer karaoke sales, inventory, and after-sales operations.
+</div>
